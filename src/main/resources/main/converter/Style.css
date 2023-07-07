@@ -1,0 +1,40 @@
+.button {
+    -fx-background-color: #34FFC8;
+    -fx-font-size: 26px;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212121;
+    -fx-background-radius: 50;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #55f6c0;
+    -fx-scale-x: 1.02;
+}
+
+.button-active {
+    -fx-background-color: #212121;
+    -fx-font-size: 26px;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34FFC8;
+    -fx-background-radius: 50;
+}
+
+.button-active:hover {
+    -fx-background-color: #3F3F3F;
+}
+
+.input {
+    -fx-background-color: #2F2F2F;
+    -fx-text-fill: #eeeeee;
+    -fx-font-size: 32px;
+    -fx-background-radius: 10;
+}
+
+.convertor {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-text-fill: #eeeeee;
+    -fx-font-size: 32px;
+}
