@@ -20,10 +20,12 @@
     -fx-font-weight: bold;
     -fx-text-fill: #34FFC8;
     -fx-background-radius: 50;
+    -fx-scale-x: 1.05;
 }
 
 .button-active:hover {
     -fx-background-color: #3F3F3F;
+    -fx-scale-x: 1.06;
 }
 
 .input {
