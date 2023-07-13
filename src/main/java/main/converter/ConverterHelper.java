@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,6 +46,13 @@ public class ConverterHelper {
     public static void clearButtonStyles(Button... buttons) {
         for (Button button : buttons) {
             button.getStyleClass().remove("button-active");
+        }
+    }
+
+    public static void filterInput(KeyEvent event) {
+        char c = event.getCharacter().charAt(0);
+        if (!Character.isDigit(c) && c != '.') {
+            event.consume();
         }
     }
 

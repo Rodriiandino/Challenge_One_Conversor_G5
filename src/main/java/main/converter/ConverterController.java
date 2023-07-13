@@ -7,8 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import main.converter.converters.Converter;
-import main.converter.converters.ConverterTime;
+import javafx.scene.input.KeyEvent;
+import main.converter.converters.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 public class ConverterController implements Initializable {
 
     @FXML
-    private Label inputOne;
+    private TextField inputOne;
     @FXML
     private Label inputTwo;
     @FXML
@@ -42,6 +42,9 @@ public class ConverterController implements Initializable {
     private Button btnLength;
 
     Converter converterTime = new ConverterTime();
+    ConverterTemperature converterTemperature = new ConverterTemperature();
+    ConverterLength converterLength = new ConverterLength();
+    ConverterArea converterArea = new ConverterArea();
 
 
     @Override
@@ -51,13 +54,13 @@ public class ConverterController implements Initializable {
     }
 
     private void setupListeners() {
+        inputOne.addEventFilter(KeyEvent.KEY_TYPED, ConverterHelper::filterInput);
         choiceOne.setOnAction(event -> ConverterHelper.onChange(choiceOne, valueOne));
         choiceTwo.setOnAction(event -> ConverterHelper.onChange(choiceTwo, valueTwo));
         inputOne.textProperty().addListener((observableValue, oldValue, newValue) -> onChangeInput());
         choiceOne.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> onChangeInput());
         choiceTwo.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> onChangeInput());
     }
-
 
     public void selectCategory(ActionEvent event) {
         Button sourceButton = (Button) event.getSource();
@@ -71,7 +74,7 @@ public class ConverterController implements Initializable {
         ConverterHelper.updateChoiceBoxes(text, choiceOne, choiceTwo, valueOne, valueTwo);
     }
 
-    public void newNumber(ActionEvent event) {
+    public void newValue(ActionEvent event) {
         String text = inputOne.getText();
         Button sourceButton = (Button) event.getSource();
         String number = sourceButton.getText();
@@ -86,8 +89,13 @@ public class ConverterController implements Initializable {
 
         if (!text.isEmpty()) {
             double value = Double.parseDouble(text);
-            double result = converterTime.convert(value, from, to);
-            inputTwo.setText(String.valueOf(result));
+            switch (titleCategory.getText()) {
+                case "Time" -> inputTwo.setText(String.valueOf(converterTime.convert(value, from, to)));
+                case "Temperature" -> inputTwo.setText(String.valueOf(converterTemperature.convert(value, from, to)));
+                case "Length" -> inputTwo.setText(String.valueOf(converterLength.convert(value, from, to)));
+                case "Area" -> inputTwo.setText(String.valueOf(converterArea.convert(value, from, to)));
+
+            }
         } else {
             inputTwo.setText("");
         }
