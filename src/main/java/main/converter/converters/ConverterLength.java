@@ -10,7 +10,6 @@ public class ConverterLength implements Converter {
                    case "Meter" -> result = value;
                    case "Kilometer" -> result = value/ 1000;
                    case "Mile" -> result = value/ 1609.344;
-
                }
             }
             case "Kilometer" -> {
@@ -18,7 +17,6 @@ public class ConverterLength implements Converter {
                     case "Meter" -> result = value * 1000;
                     case "Kilometer" -> result = value;
                     case "Mile" -> result = value / 1.609;
-
                 }
             }
             case "Mile" -> {
@@ -26,7 +24,6 @@ public class ConverterLength implements Converter {
                  case "Meter" -> result = value * 1609.344;
                  case "Kilometer" -> result = value * 1.609;
                  case "Mile" -> result = value;
-
                  }
             }
         }

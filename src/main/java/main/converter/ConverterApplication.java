@@ -18,7 +18,6 @@ public class ConverterApplication extends Application {
         stage.setScene(scene);
         stage.setMinWidth(600);
         stage.setMinHeight(500);
-        //stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
 

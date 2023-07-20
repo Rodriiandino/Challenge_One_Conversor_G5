@@ -29,11 +29,16 @@ public class ConverterHelper {
 
     public static void updateChoiceBoxes(String category, ChoiceBox<String> choiceOne, ChoiceBox<String> choiceTwo, Label valueOne, Label valueTwo) {
         List<String> values = getValuesForCategory(category);
-        assert values != null;
+
+        if (values == null) {
+            System.err.println("Error: Invalid category '" + category + "'");
+            return;
+        }
+
         choiceOne.setItems(FXCollections.observableArrayList(values));
         choiceTwo.setItems(FXCollections.observableArrayList(values));
         choiceOne.getSelectionModel().selectFirst();
-        choiceTwo.getSelectionModel().selectNext();
+        choiceTwo.getSelectionModel().select(1);
         valueOne.setText(choiceOne.getValue());
         valueTwo.setText(choiceTwo.getValue());
     }

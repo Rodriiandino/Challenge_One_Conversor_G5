@@ -41,10 +41,11 @@ public class ConverterController implements Initializable {
     @FXML
     private Button btnLength;
 
+    ConverterCurrency converterCurrency = new ConverterCurrency();
+    ConverterArea converterArea = new ConverterArea();
     Converter converterTime = new ConverterTime();
     ConverterTemperature converterTemperature = new ConverterTemperature();
     ConverterLength converterLength = new ConverterLength();
-    ConverterArea converterArea = new ConverterArea();
 
 
     @Override
@@ -57,9 +58,10 @@ public class ConverterController implements Initializable {
         inputOne.addEventFilter(KeyEvent.KEY_TYPED, ConverterHelper::filterInput);
         choiceOne.setOnAction(event -> ConverterHelper.onChange(choiceOne, valueOne));
         choiceTwo.setOnAction(event -> ConverterHelper.onChange(choiceTwo, valueTwo));
-        inputOne.textProperty().addListener((observableValue, oldValue, newValue) -> onChangeInput());
         choiceOne.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> onChangeInput());
         choiceTwo.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> onChangeInput());
+        inputOne.textProperty().addListener((observableValue, oldValue, newValue) -> onChangeInput());
+
     }
 
     public void selectCategory(ActionEvent event) {
@@ -87,18 +89,28 @@ public class ConverterController implements Initializable {
         String from = choiceOne.getValue();
         String to = choiceTwo.getValue();
 
-        if (!text.isEmpty()) {
-            double value = Double.parseDouble(text);
-            switch (titleCategory.getText()) {
-                case "Time" -> inputTwo.setText(String.valueOf(converterTime.convert(value, from, to)));
-                case "Temperature" -> inputTwo.setText(String.valueOf(converterTemperature.convert(value, from, to)));
-                case "Length" -> inputTwo.setText(String.valueOf(converterLength.convert(value, from, to)));
-                case "Area" -> inputTwo.setText(String.valueOf(converterArea.convert(value, from, to)));
-
-            }
-        } else {
+        if (text.isEmpty() || from == null || to == null) {
             inputTwo.setText("");
+            return;
         }
+
+        double result = 0;
+
+        double value = Double.parseDouble(text);
+        switch (titleCategory.getText()) {
+            case "Currency" -> result = converterCurrency.convert(value, from, to);
+            case "Area" -> result = converterArea.convert(value, from, to);
+            case "Time" -> result = converterTime.convert(value, from, to);
+            case "Temperature" -> result = converterTemperature.convert(value, from, to);
+            case "Length" -> result = converterLength.convert(value, from, to);
+        }
+        if (result % 1 == 0) {
+            int intResult = (int) result;
+            inputTwo.setText(String.valueOf(intResult));
+        } else {
+            inputTwo.setText(String.valueOf(result));
+        }
+
     }
 
     public void eraseLast() {
