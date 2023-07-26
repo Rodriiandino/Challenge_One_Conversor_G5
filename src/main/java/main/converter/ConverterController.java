@@ -9,9 +9,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import main.converter.converters.*;
+import main.converter.measuremenUnit.MeasurementUnit;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+/***
+ * @author Rodrigo Agustin Andino
+ * @version 1.0
+ * @apiNote Esta clase es el controlador de la aplicacion de conversiones
+ * */
 
 public class ConverterController implements Initializable {
 
@@ -24,9 +31,9 @@ public class ConverterController implements Initializable {
     @FXML
     private Label valueOne;
     @FXML
-    private ChoiceBox<String> choiceTwo;
+    private ChoiceBox<MeasurementUnit> choiceTwo;
     @FXML
-    private ChoiceBox<String> choiceOne;
+    private ChoiceBox<MeasurementUnit> choiceOne;
     @FXML
     private Label titleCategory;
 
@@ -56,8 +63,8 @@ public class ConverterController implements Initializable {
 
     private void setupListeners() {
         inputOne.addEventFilter(KeyEvent.KEY_TYPED, ConverterHelper::filterInput);
-        choiceOne.setOnAction(event -> ConverterHelper.onChange(choiceOne, valueOne));
-        choiceTwo.setOnAction(event -> ConverterHelper.onChange(choiceTwo, valueTwo));
+        choiceOne.setOnAction(event -> valueOne.setText(choiceOne.getValue().longName()));
+        choiceTwo.setOnAction(event -> valueTwo.setText(choiceTwo.getValue().longName()));
         choiceOne.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> onChangeInput());
         choiceTwo.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> onChangeInput());
         inputOne.textProperty().addListener((observableValue, oldValue, newValue) -> onChangeInput());
@@ -86,8 +93,8 @@ public class ConverterController implements Initializable {
 
     public void onChangeInput() {
         String text = inputOne.getText();
-        String from = choiceOne.getValue();
-        String to = choiceTwo.getValue();
+        String from = choiceOne.getValue().shortName();
+        String to = choiceTwo.getValue().shortName();
 
         if (text.isEmpty() || from == null || to == null) {
             inputTwo.setText("");

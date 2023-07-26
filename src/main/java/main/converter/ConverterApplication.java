@@ -8,6 +8,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/***
+ * @author Rodrigo Agustin Andino
+ * @version 1.0
+ * @apiNote Aplicacion para convertir unidades de medida
+ * */
+
 public class ConverterApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {

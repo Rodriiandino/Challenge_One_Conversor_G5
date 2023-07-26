@@ -6,29 +6,35 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class ConverterHelper {
-    private static final List<String> currencyValues = Arrays.asList("USD", "EUR", "JPY");
-    private static final List<String> areaValues = Arrays.asList("Square meter", "Square kilometer", "Square mile");
-    private static final List<String> timeValues = Arrays.asList("Second", "Minute", "Hour");
-    private static final List<String> temperatureValues = Arrays.asList("Celsius", "Fahrenheit", "Kelvin");
-    private static final List<String> lengthValues = Arrays.asList("Meter", "Kilometer", "Mile");
+import main.converter.measuremenUnit.MeasurementUnit;
+import main.converter.measuremenUnit.ValuesConstants;
 
-    private static List<String> getValuesForCategory(String category) {
+/***
+ * @author Rodrigo Agustin Andino
+ * @version 1.0
+ * @apiNote Esta clase se encarga de manejar los eventos de los botones y de los choiceBox de la interfaz gráfica
+ * */
+
+public class ConverterHelper {
+
+    private static List<MeasurementUnit> getValuesForCategory(String category) {
         return switch (category) {
-            case "Currency" -> currencyValues;
-            case "Area" -> areaValues;
-            case "Time" -> timeValues;
-            case "Temperature" -> temperatureValues;
-            case "Length" -> lengthValues;
+            case "Currency" -> ValuesConstants.currencyValues;
+            case "Area" -> ValuesConstants.areaValues;
+            case "Time" -> ValuesConstants.timeValues;
+            case "Temperature" ->  ValuesConstants.temperatureValues;
+            case "Length" -> ValuesConstants.lengthValues;
             default -> null;
         };
     }
 
-    public static void updateChoiceBoxes(String category, ChoiceBox<String> choiceOne, ChoiceBox<String> choiceTwo, Label valueOne, Label valueTwo) {
-        List<String> values = getValuesForCategory(category);
+    public static void updateChoiceBoxes(String category, ChoiceBox<MeasurementUnit> choiceOne,
+                                         ChoiceBox<MeasurementUnit> choiceTwo, Label valueOne, Label valueTwo) {
+
+
+        List<MeasurementUnit> values = getValuesForCategory(category);
 
         if (values == null) {
             System.err.println("Error: Invalid category '" + category + "'");
@@ -39,14 +45,10 @@ public class ConverterHelper {
         choiceTwo.setItems(FXCollections.observableArrayList(values));
         choiceOne.getSelectionModel().selectFirst();
         choiceTwo.getSelectionModel().select(1);
-        valueOne.setText(choiceOne.getValue());
-        valueTwo.setText(choiceTwo.getValue());
+        valueOne.setText(choiceOne.getValue().longName());
+        valueTwo.setText(choiceTwo.getValue().longName());
     }
 
-    public static void onChange(ChoiceBox<String> choice, Label value) {
-        String selectedValue = choice.getValue();
-        value.setText(selectedValue);
-    }
 
     public static void clearButtonStyles(Button... buttons) {
         for (Button button : buttons) {
