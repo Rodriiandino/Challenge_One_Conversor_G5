@@ -117,7 +117,6 @@ public class ConverterCurrency implements Converter {
                 reader.close();
 
                 currencyList = parseCurrencyListJSON(response.toString());
-                System.out.println(currencyList);
             } else {
                 System.out.println("Error en la solicitud: " + responseCode);
             }
