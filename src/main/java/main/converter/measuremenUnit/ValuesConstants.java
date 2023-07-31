@@ -1,13 +1,16 @@
 package main.converter.measuremenUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/***
+ * @author Rodrigo Agustin Andino
+ * @version 1.0
+ * @apiNote Clase que contiene los valores de las unidades de medida
+ * */
+
 public class ValuesConstants {
-    public static final List<MeasurementUnit> currencyValues = Arrays.asList(
-            new MeasurementUnit("USD", "US Dollar"),
-            new MeasurementUnit("EUR", "Euro"),
-            new MeasurementUnit("JPY", "Japanese Yen")
-    );
+    public static List<MeasurementUnit> currencyValues = new ArrayList<>();
 
     public static final List<MeasurementUnit> areaValues = Arrays.asList(
             new MeasurementUnit("M2", "Square meter"),
@@ -34,4 +37,6 @@ public class ValuesConstants {
             new MeasurementUnit("CM", "Centimeter"),
             new MeasurementUnit("MM", "Millimeter")
     );
+
 }
+

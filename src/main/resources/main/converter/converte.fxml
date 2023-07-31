@@ -129,7 +129,10 @@
                               <children>
                                  <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <children>
-                                       <Label fx:id="inputTwo" styleClass="input" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       <Label fx:id="inputTwo" styleClass="input" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <padding>
+                                             <Insets left="10.0" />
+                                          </padding></Label>
                                     </children>
                                  </AnchorPane>
                                  <AnchorPane GridPane.columnIndex="1">
